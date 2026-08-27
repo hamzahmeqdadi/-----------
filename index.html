@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حِصن — أذكار وأدعية وأحاديث ومواقيت الصلاة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@400;500;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Day palette */
+    --day-bg: #FBF6EC;
+    --day-bg-2: #F3EAD6;
+    --day-ink: #23342F;
+    --day-gold: #B8924A;
+    --day-teal: #0F3D3E;
+    --day-rose: #C97B63;
+    --day-card: #FFFFFF;
+    --day-line: rgba(15,61,62,0.15);
+ 
+    /* Night palette */
+    --night-bg: #0A1A22;
+    --night-bg-2: #0F2530;
+    --night-ink: #E9E3D2;
+    --night-gold: #D4B36A;
+    --night-teal: #7FBFB8;
+    --night-rose: #D98F73;
+    --night-card: #102A34;
+    --night-line: rgba(212,179,106,0.18);
+ 
+    --bg: var(--day-bg);
+    --bg-2: var(--day-bg-2);
+    --ink: var(--day-ink);
+    --gold: var(--day-gold);
+    --teal: var(--day-teal);
+    --rose: var(--day-rose);
+    --card: var(--day-card);
+    --line: var(--day-line);
+ 
+    --display: 'Reem Kufi', sans-serif;
+    --body: 'Amiri', serif;
+    --ui: 'Tajawal', sans-serif;
+  }
+ 
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--ui);
+    transition:background 0.7s ease, color 0.7s ease;
+    min-height:100vh;
+  }
+  body.night{ --bg:var(--night-bg); --bg-2:var(--night-bg-2); --ink:var(--night-ink); --gold:var(--night-gold); --teal:var(--night-teal); --rose:var(--night-rose); --card:var(--night-card); --line:var(--night-line); }
+ 
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background:
+      radial-gradient(circle at 15% 8%, var(--gold) 0%, transparent 2.2%),
+      radial-gradient(circle at 78% 4%, var(--gold) 0%, transparent 1.5%),
+      radial-gradient(circle at 92% 30%, var(--gold) 0%, transparent 1.2%),
+      radial-gradient(circle at 6% 60%, var(--gold) 0%, transparent 1.4%);
+    opacity:0.18;
+    pointer-events:none;
+    transition:opacity 0.7s ease;
+    z-index:0;
+  }
+  body.night::before{ opacity:0.35; }
+ 
+  .wrap{ position:relative; z-index:1; max-width:880px; margin:0 auto; padding:0 20px 80px; }
+ 
+  /* ---------- Header ---------- */
+  header{
+    text-align:center;
+    padding:56px 20px 40px;
+    position:relative;
+  }
+  .arch{
+    width:220px; height:120px;
+    margin:0 auto 18px;
+    position:relative;
+  }
+  .arch svg{ width:100%; height:100%; display:block; }
+  .arch path{ fill:none; stroke:var(--gold); stroke-width:2; transition:stroke 0.7s ease; }
+  .arch .fill{ fill:var(--gold); opacity:0.12; }
+ 
+  h1.brand{
+    font-family:var(--display);
+    font-size:clamp(2.4rem, 6vw, 3.6rem);
+    margin:0;
+    letter-spacing:2px;
+    color:var(--teal);
+    transition:color 0.7s ease;
+  }
+  body.night h1.brand{ color:var(--gold); }
+  .tagline{
+    font-family:var(--body);
+    font-style:italic;
+    font-size:1.15rem;
+    color:var(--rose);
+    margin-top:10px;
+    letter-spacing:0.5px;
+  }
+  .clock-row{
+    margin-top:22px;
+    display:flex; justify-content:center; gap:18px; flex-wrap:wrap;
+    font-family:var(--ui); font-size:0.85rem; color:var(--ink); opacity:0.75;
+  }
+  .clock-row span b{ color:var(--gold); font-weight:700; }
+ 
+  /* ---------- Nav (star selector) ---------- */
+  nav.tabs{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin:10px 0 44px;
+  }
+  nav.tabs button{
+    font-family:var(--ui);
+    font-weight:500;
+    font-size:0.95rem;
+    color:var(--ink);
+    background:var(--card);
+    border:1px solid var(--line);
+    padding:11px 20px;
+    border-radius:3px;
+    cursor:pointer;
+    position:relative;
+    transition:all 0.35s ease;
+    clip-path:polygon(8% 0,92% 0,100% 50%,92% 100%,8% 100%,0 50%);
+  }
+  nav.tabs button:hover{ border-color:var(--gold); }
+  nav.tabs button.active{
+    background:var(--teal);
+    color:var(--day-bg);
+    border-color:var(--teal);
+  }
+  body.night nav.tabs button.active{ background:var(--gold); color:var(--night-bg); border-color:var(--gold); }
+ 
+  section.panel{ display:none; animation:fadeIn 0.5s ease; }
+  section.panel.active{ display:block; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+ 
+  .section-title{
+    font-family:var(--display);
+    font-size:1.6rem;
+    color:var(--teal);
+    text-align:center;
+    margin-bottom:6px;
+    transition:color 0.7s ease;
+  }
+  body.night .section-title{ color:var(--gold); }
+  .section-sub{
+    text-align:center;
+    font-family:var(--ui);
+    font-size:0.85rem;
+    opacity:0.65;
+    margin-bottom:30px;
+  }
+ 
+  /* ---------- Dhikr card ---------- */
+  .dhikr-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:28px 26px 22px;
+    margin-bottom:22px;
+    position:relative;
+    overflow:hidden;
+  }
+  .dhikr-card::before{
+    content:"";
+    position:absolute; top:0; right:0; left:0; height:3px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .dhikr-text{
+    font-family:var(--body);
+    font-size:1.35rem;
+    line-height:2.3;
+    color:var(--ink);
+    text-align:right;
+  }
+  .dhikr-text .verse-num{
+    font-family:var(--ui);
+    font-size:0.7rem;
+    color:var(--gold);
+    border:1px solid var(--gold);
+    border-radius:50%;
+    padding:2px 6px;
+    margin:0 4px;
+    vertical-align:middle;
+  }
+  .dhikr-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:18px;
+    padding-top:14px;
+    border-top:1px dashed var(--line);
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .dhikr-source{ font-family:var(--ui); font-size:0.78rem; opacity:0.55; }
+  .counter{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--ui);
+  }
+  .counter button.tap{
+    width:44px; height:44px;
+    border-radius:50%;
+    border:2px solid var(--gold);
+    background:transparent;
+    color:var(--gold);
+    font-size:1rem;
+    font-weight:700;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:all 0.2s ease;
+    position:relative;
+  }
+  .counter button.tap svg{ position:absolute; inset:-2px; width:48px; height:48px; transform:rotate(-90deg); }
+  .counter button.tap circle{ fill:none; stroke:var(--gold); stroke-width:2; stroke-dasharray:126; transition:stroke-dashoffset 0.25s ease; }
+  .counter button.tap.done{ background:var(--gold); color:var(--card); }
+  .counter .count-label{ font-size:0.85rem; opacity:0.7; min-width:52px; }
+  .counter .reset{ background:none; border:none; color:var(--rose); font-size:0.75rem; cursor:pointer; text-decoration:underline; opacity:0.7; }
+  .counter .reset:hover{ opacity:1; }
+ 
+  /* ---------- Prayer times ---------- */
+  .pt-box{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:26px;
+    text-align:center;
+  }
+  .pt-loc{ font-family:var(--ui); font-size:0.95rem; margin-bottom:4px; }
+  .pt-date{ font-family:var(--ui); font-size:0.8rem; opacity:0.6; margin-bottom:24px; }
+  .pt-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(120px,1fr));
+    gap:14px;
+    margin-bottom:22px;
+  }
+  .pt-cell{
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:16px 8px;
+    transition:all 0.3s ease;
+  }
+  .pt-cell.next{ border-color:var(--gold); background:linear-gradient(180deg, transparent, rgba(184,146,74,0.08)); }
+  .pt-cell .name{ font-family:var(--display); font-size:1rem; color:var(--teal); margin-bottom:6px; }
+  body.night .pt-cell .name{ color:var(--gold); }
+  .pt-cell .time{ font-family:var(--ui); font-size:1.25rem; font-weight:700; direction:ltr; }
+  .pt-cell .until{ font-family:var(--ui); font-size:0.68rem; opacity:0.55; margin-top:4px; }
+  .pt-controls{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+  .pt-controls select, .pt-controls button{
+    font-family:var(--ui); font-size:0.85rem;
+    padding:9px 16px; border-radius:4px; border:1px solid var(--line);
+    background:var(--bg); color:var(--ink); cursor:pointer;
+  }
+  .pt-controls button.primary{ background:var(--teal); color:var(--day-bg); border-color:var(--teal); }
+  body.night .pt-controls button.primary{ background:var(--gold); color:var(--night-bg); }
+  .pt-note{ font-family:var(--ui); font-size:0.72rem; opacity:0.5; margin-top:16px; line-height:1.6; }
+ 
+  /* ---------- Hadith ---------- */
+  .hadith-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:24px 26px;
+    margin-bottom:18px;
+    border-right:3px solid var(--rose);
+  }
+  .hadith-text{ font-family:var(--body); font-size:1.2rem; line-height:2.1; }
+  .hadith-source{ font-family:var(--ui); font-size:0.78rem; color:var(--rose); margin-top:12px; }
+ 
+  footer{ text-align:center; padding:40px 0 10px; font-family:var(--ui); font-size:0.75rem; opacity:0.45; }
+ 
+  @media (max-width:520px){
+    .dhikr-text{ font-size:1.15rem; }
+    nav.tabs button{ font-size:0.82rem; padding:9px 14px; }
+  }
+ 
+  :focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+ 
+  <header>
+    <div class="arch">
+      <svg viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg">
+        <path class="fill" d="M20,120 L20,60 Q20,10 110,10 Q200,10 200,60 L200,120 Z"/>
+        <path d="M20,120 L20,60 Q20,10 110,10 Q200,10 200,60 L200,120"/>
+        <path d="M40,120 L40,64 Q40,26 110,26 Q180,26 180,64 L180,120" opacity="0.5"/>
+        <circle cx="110" cy="10" r="4" fill="none" stroke-width="2"/>
+      </svg>
+    </div>
+    <h1 class="brand">حِصن المسلم</h1>
+    <div class="tagline">أذكارك اليوم حِصنٌ لك، وذِكرُك سكينةُ قلبك</div>
+    <div class="clock-row">
+      <span>التاريخ الميلادي: <b id="gDate">—</b></span>
+      <span>الفترة الحالية: <b id="dayPart">—</b></span>
+    </div>
+  </header>
+ 
+  <nav class="tabs">
+    <button data-tab="sabah" class="active">أذكار الصباح</button>
+    <button data-tab="masaa">أذكار المساء</button>
+    <button data-tab="adiya">أدعية مختارة</button>
+    <button data-tab="hadith">أحاديث نبوية</button>
+    <button data-tab="salat">مواقيت الصلاة</button>
+  </nav>
+ 
+  <!-- ===================== أذكار الصباح ===================== -->
+  <section class="panel active" id="sabah">
+    <div class="section-title">أذكار الصباح</div>
+    <div class="section-sub">من بعد صلاة الفجر إلى شروق الشمس — تُقرأ مرة واحدة إن لم يُذكر غير ذلك</div>
+    <div id="sabahList"></div>
+  </section>
+ 
+  <!-- ===================== أذكار المساء ===================== -->
+  <section class="panel" id="masaa">
+    <div class="section-title">أذكار المساء</div>
+    <div class="section-sub">من بعد صلاة العصر إلى غروب الشمس</div>
+    <div id="masaaList"></div>
+  </section>
+ 
+  <!-- ===================== أدعية ===================== -->
+  <section class="panel" id="adiya">
+    <div class="section-title">أدعية مختارة</div>
+    <div class="section-sub">أدعية من القرآن والسنة لمواقف يومية</div>
+    <div id="adiyaList"></div>
+  </section>
+ 
+  <!-- ===================== أحاديث ===================== -->
+  <section class="panel" id="hadith">
+    <div class="section-title">أحاديث نبوية</div>
+    <div class="section-sub">أحاديث صحيحة موجزة في الأخلاق والعبادة</div>
+    <div id="hadithList"></div>
+  </section>
+ 
+  <!-- ===================== مواقيت الصلاة ===================== -->
+  <section class="panel" id="salat">
+    <div class="section-title">مواقيت الصلاة</div>
+    <div class="section-sub">محسوبة فلكيًا حسب موقعك — طريقة رابطة العالم الإسلامي</div>
+    <div class="pt-box">
+      <div class="pt-loc" id="ptLoc">جارٍ تحديد الموقع…</div>
+      <div class="pt-date" id="ptDate">—</div>
+      <div class="pt-grid" id="ptGrid"></div>
+      <div class="pt-controls">
+        <button class="primary" id="btnGeo">تحديد موقعي تلقائيًا</button>
+        <select id="citySelect">
+          <option value="">اختر مدينة…</option>
+        </select>
+      </div>
+      <div class="pt-note">الحساب تقديري باستخدام معادلات فلكية قياسية (زاوية الفجر والعشاء 18°). لأغراض دقيقة اعتمد مصدرًا رسميًا محليًا.</div>
+    </div>
+  </section>
+ 
+  <footer>حِصن المسلم — بُني بحُبٍّ لخدمة الذكر اليومي</footer>
+</div>
+ 
+<script>
+/* ===================== DATA ===================== */
+const sabahAdhkar = [
+  {text:"أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ رَبِّ الْعَالَمِينَ، اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ هَذَا الْيَوْمِ: فَتْحَهُ وَنَصْرَهُ وَنُورَهُ وَبَرَكَتَهُ وَهُدَاهُ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِيهِ وَشَرِّ مَا بَعْدَهُ.", source:"رواه مسلم", count:1},
+  {text:"اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ.", source:"رواه الترمذي", count:1},
+  {text:"اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.", source:"سيد الاستغفار — رواه البخاري", count:1},
+  {text:"بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ.", source:"رواه أبو داود والترمذي", count:3},
+  {text:"رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا.", source:"رواه أبو داود والترمذي", count:3},
+  {text:"حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ.", source:"رواه أبو داود", count:7},
+  {text:"سُبْحَانَ اللَّهِ وَبِحَمْدِهِ.", source:"رواه مسلم", count:100},
+  {text:"لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.", source:"رواه البخاري ومسلم — عشر مرات", count:10},
+  {text:"اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ.", source:"رواه ابن ماجه", count:1},
+  {text:"اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَهَ إِلَّا أَنْتَ.", source:"رواه أبو داود", count:3},
+  {text:"قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ", source:"سورة الإخلاص — ثلاث مرات", count:3},
+  {text:"قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۝ مِنْ شَرِّ مَا خَلَقَ ۝ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ۝ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ", source:"سورة الفلق — ثلاث مرات", count:3},
+  {text:"قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِكِ النَّاسِ ۝ إِلَهِ النَّاسِ ۝ مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ۝ مِنَ الْجِنَّةِ وَالنَّاسِ", source:"سورة الناس — ثلاث مرات", count:3},
+];
+ 
+const masaaAdhkar = [
+  {text:"أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ رَبِّ الْعَالَمِينَ، اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ هَذِهِ اللَّيْلَةِ: فَتْحَهَا وَنَصْرَهَا وَنُورَهَا وَبَرَكَتَهَا وَهُدَاهَا، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِيهَا وَشَرِّ مَا بَعْدَهَا.", source:"رواه مسلم", count:1},
+  {text:"اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ.", source:"رواه الترمذي", count:1},
+  {text:"اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.", source:"سيد الاستغفار — رواه البخاري", count:1},
+  {text:"أَمْسَيْنَا عَلَى فِطْرَةِ الْإِسْلَامِ، وَعَلَى كَلِمَةِ الْإِخْلَاصِ، وَعَلَى دِينِ نَبِيِّنَا مُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، وَعَلَى مِلَّةِ أَبِينَا إِبْرَاهِيمَ حَنِيفًا مُسْلِمًا وَمَا كَانَ مِنَ الْمُشْرِكِينَ.", source:"رواه أحمد", count:1},
+  {text:"حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ.", source:"رواه أبو داود", count:7},
+  {text:"اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكُفْرِ وَالْفَقْرِ، وَأَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، لَا إِلَهَ إِلَّا أَنْتَ.", source:"رواه أبو داود", count:3},
+  {text:"سُبْحَانَ اللَّهِ وَبِحَمْدِهِ.", source:"رواه مسلم", count:100},
+  {text:"أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ.", source:"رواه مسلم", count:3},
+  {text:"آيَةُ الْكُرْسِيِّ: اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ، لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ، لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ، مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ، يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ، وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ، وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ، وَلَا يَئُودُهُ حِفْظُهُمَا، وَهُوَ الْعَلِيُّ الْعَظِيمُ.", source:"سورة البقرة، آية 255", count:1},
+  {text:"قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ", source:"سورة الإخلاص — ثلاث مرات", count:3},
+  {text:"قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۝ مِنْ شَرِّ مَا خَلَقَ ۝ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ۝ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ", source:"سورة الفلق — ثلاث مرات", count:3},
+  {text:"قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِكِ النَّاسِ ۝ إِلَهِ النَّاسِ ۝ مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ۝ مِنَ الْجِنَّةِ وَالنَّاسِ", source:"سورة الناس — ثلاث مرات", count:3},
+];
+ 
+const adiya = [
+  {title:"دعاء الخروج من المنزل", text:"بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ.", source:"رواه أبو داود والترمذي"},
+  {title:"دعاء دخول المنزل", text:"بِسْمِ اللَّهِ وَلَجْنَا، وَبِسْمِ اللَّهِ خَرَجْنَا، وَعَلَى اللَّهِ رَبِّنَا تَوَكَّلْنَا.", source:"رواه أبو داود"},
+  {title:"دعاء قبل الطعام", text:"بِسْمِ اللَّهِ. (وإن نسي في أوله فليقل: بِسْمِ اللَّهِ فِي أَوَّلِهِ وَآخِرِهِ)", source:"رواه أبو داود والترمذي"},
+  {title:"دعاء بعد الطعام", text:"الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا، وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ.", source:"رواه أبو داود والترمذي"},
+  {title:"دعاء السفر", text:"اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ.", source:"رواه مسلم"},
+  {title:"دعاء الهمّ والحزن", text:"اللَّهُمَّ إِنِّي عَبْدُكَ، ابْنُ عَبْدِكَ، ابْنُ أَمَتِكَ، نَاصِيَتِي بِيَدِكَ، مَاضٍ فِيَّ حُكْمُكَ، عَدْلٌ فِيَّ قَضَاؤُكَ، أَسْأَلُكَ بِكُلِّ اسْمٍ هُوَ لَكَ... أَنْ تَجْعَلَ الْقُرْآنَ رَبِيعَ قَلْبِي، وَنُورَ صَدْرِي، وَجَلَاءَ حُزْنِي، وَذَهَابَ هَمِّي.", source:"رواه أحمد"},
+  {title:"دعاء لرفع الكرب", text:"لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ السَّمَاوَاتِ وَرَبُّ الْأَرْضِ وَرَبُّ الْعَرْشِ الْكَرِيمِ.", source:"رواه البخاري ومسلم"},
+  {title:"دعاء للوالدين", text:"رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا.", source:"سورة الإسراء، آية 24"},
+  {title:"دعاء دخول المسجد", text:"اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ.", source:"رواه مسلم"},
+  {title:"دعاء الاستخارة (مختصر المعنى)", text:"اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ، وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ، وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ، فَإِنَّكَ تَقْدِرُ وَلَا أَقْدِرُ، وَتَعْلَمُ وَلَا أَعْلَمُ، وَأَنْتَ عَلَّامُ الْغُيُوبِ...", source:"رواه البخاري"},
+];
+ 
+const hadiths = [
+  {text:"إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى.", source:"متفق عليه، عن عمر بن الخطاب رضي الله عنه"},
+  {text:"تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ.", source:"رواه الترمذي، عن أبي ذر رضي الله عنه"},
+  {text:"مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ.", source:"متفق عليه، عن أبي هريرة رضي الله عنه"},
+  {text:"الْمُؤْمِنُ الْقَوِيُّ خَيْرٌ وَأَحَبُّ إِلَى اللَّهِ مِنَ الْمُؤْمِنِ الضَّعِيفِ، وَفِي كُلٍّ خَيْرٌ.", source:"رواه مسلم، عن أبي هريرة رضي الله عنه"},
+  {text:"لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لِأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ.", source:"متفق عليه، عن أنس رضي الله عنه"},
+  {text:"مَنْ لَا يَرْحَمِ النَّاسَ لَا يَرْحَمْهُ اللَّهُ.", source:"متفق عليه، عن جرير بن عبد الله رضي الله عنه"},
+  {text:"الدُّنْيَا سِجْنُ الْمُؤْمِنِ وَجَنَّةُ الْكَافِرِ.", source:"رواه مسلم، عن أبي هريرة رضي الله عنه"},
+  {text:"مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ.", source:"رواه مسلم، عن أبي هريرة رضي الله عنه"},
+  {text:"خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ.", source:"رواه البخاري، عن عثمان بن عفان رضي الله عنه"},
+  {text:"الْكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ.", source:"متفق عليه، عن أبي هريرة رضي الله عنه"},
+];
+ 
+/* ===================== RENDER LISTS ===================== */
+function dhikrCardHTML(item, idPrefix, idx){
+  const id = idPrefix + idx;
+  const needsCounter = item.count && item.count > 1;
+  return `
+  <div class="dhikr-card">
+    <div class="dhikr-text">${item.text}</div>
+    <div class="dhikr-meta">
+      <div class="dhikr-source">${item.source}${item.count ? ' · تُقرأ ' + arabicCount(item.count) : ''}</div>
+      ${needsCounter ? counterHTML(id, item.count) : ''}
+    </div>
+  </div>`;
+}
+function arabicCount(n){
+  if(n===1) return 'مرة واحدة';
+  if(n===3) return '3 مرات';
+  if(n===7) return '7 مرات';
+  if(n===10) return '10 مرات';
+  if(n===100) return '100 مرة';
+  return n + ' مرات';
+}
+function counterHTML(id, total){
+  return `
+  <div class="counter" data-id="${id}" data-total="${total}" data-count="0">
+    <button class="reset" onclick="resetCounter('${id}')">إعادة</button>
+    <span class="count-label"><span class="cur">0</span>/${total}</span>
+    <button class="tap" onclick="tapCounter('${id}')" aria-label="عدّ الذكر">
+      <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20"/></svg>
+      <span class="tick">◆</span>
+    </button>
+  </div>`;
+}
+function tapCounter(id){
+  const wrap = document.querySelector(`.counter[data-id="${id}"]`);
+  let count = parseInt(wrap.dataset.count) + 1;
+  const total = parseInt(wrap.dataset.total);
+  if(count > total) count = total;
+  wrap.dataset.count = count;
+  wrap.querySelector('.cur').textContent = count;
+  const circle = wrap.querySelector('circle');
+  const btn = wrap.querySelector('.tap');
+  const pct = count/total;
+  circle.style.strokeDashoffset = 126 - (126*pct);
+  if(count >= total){ btn.classList.add('done'); if(navigator.vibrate) navigator.vibrate(30); }
+}
+function resetCounter(id){
+  const wrap = document.querySelector(`.counter[data-id="${id}"]`);
+  wrap.dataset.count = 0;
+  wrap.querySelector('.cur').textContent = 0;
+  wrap.querySelector('circle').style.strokeDashoffset = 126;
+  wrap.querySelector('.tap').classList.remove('done');
+}
+ 
+document.getElementById('sabahList').innerHTML = sabahAdhkar.map((it,i)=>dhikrCardHTML(it,'sabah',i)).join('');
+document.getElementById('masaaList').innerHTML = masaaAdhkar.map((it,i)=>dhikrCardHTML(it,'masaa',i)).join('');
+document.getElementById('adiyaList').innerHTML = adiya.map(d=>`
+  <div class="hadith-card">
+    <div class="section-sub" style="text-align:right;margin-bottom:8px;opacity:0.8;font-family:var(--ui);font-weight:700;color:var(--gold);">${d.title}</div>
+    <div class="hadith-text">${d.text}</div>
+    <div class="hadith-source">${d.source}</div>
+  </div>`).join('');
+document.getElementById('hadithList').innerHTML = hadiths.map(h=>`
+  <div class="hadith-card">
+    <div class="hadith-text">«${h.text}»</div>
+    <div class="hadith-source">${h.source}</div>
+  </div>`).join('');
+ 
+/* ===================== TABS + DAY/NIGHT THEME ===================== */
+const tabButtons = document.querySelectorAll('nav.tabs button');
+tabButtons.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    tabButtons.forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('section.panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    applyThemeForTab(btn.dataset.tab);
+  });
+});
+function applyThemeForTab(tab){
+  if(tab === 'masaa'){ document.body.classList.add('night'); }
+  else if(tab === 'sabah'){ document.body.classList.remove('night'); }
+  // adiya/hadith/salat keep whatever the clock/time-of-day already set
+}
+ 
+/* ===================== CLOCK / DAY PART ===================== */
+function updateClock(){
+  const now = new Date();
+  document.getElementById('gDate').textContent = now.toLocaleDateString('ar-EG', {year:'numeric', month:'long', day:'numeric'});
+  const h = now.getHours();
+  let part, isNight;
+  if(h>=4 && h<12){ part='الصباح'; isNight=false; }
+  else if(h>=12 && h<17){ part='الظهيرة'; isNight=false; }
+  else if(h>=17 && h<20){ part='المساء'; isNight=true; }
+  else { part='الليل'; isNight=true; }
+  document.getElementById('dayPart').textContent = part;
+  // set initial theme + initial active tab to match time of day, only once at load
+  if(!window.__themeInit){
+    window.__themeInit = true;
+    if(isNight){
+      document.body.classList.add('night');
+      tabButtons.forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('section.panel').forEach(p=>p.classList.remove('active'));
+      document.querySelector('[data-tab="masaa"]').classList.add('active');
+      document.getElementById('masaa').classList.add('active');
+    }
+  }
+}
+updateClock();
+setInterval(updateClock, 60000);
+ 
+/* ===================== PRAYER TIMES (astronomical calculation) ===================== */
+const cities = {
+  "عمّان، الأردن": {lat:31.9539, lon:35.9106, tz:3},
+  "مكة المكرمة": {lat:21.4225, lon:39.8262, tz:3},
+  "المدينة المنورة": {lat:24.5247, lon:39.5692, tz:3},
+  "القاهرة، مصر": {lat:30.0444, lon:31.2357, tz:2},
+  "الرياض، السعودية": {lat:24.7136, lon:46.6753, tz:3},
+  "دبي، الإمارات": {lat:25.2048, lon:55.2708, tz:4},
+  "إسطنبول، تركيا": {lat:41.0082, lon:28.9784, tz:3},
+  "الدار البيضاء، المغرب": {lat:33.5731, lon:-7.5898, tz:1},
+  "لندن، بريطانيا": {lat:51.5074, lon:-0.1278, tz:1},
+};
+const citySelect = document.getElementById('citySelect');
+Object.keys(cities).forEach(name=>{
+  const opt = document.createElement('option');
+  opt.value = name; opt.textContent = name;
+  citySelect.appendChild(opt);
+});
+citySelect.addEventListener('change', ()=>{
+  if(citySelect.value){
+    const c = cities[citySelect.value];
+    computeAndRenderPrayerTimes(c.lat, c.lon, c.tz, citySelect.value);
+  }
+});
+document.getElementById('btnGeo').addEventListener('click', tryGeolocate);
+ 
+function tryGeolocate(){
+  document.getElementById('ptLoc').textContent = 'جارٍ تحديد الموقع…';
+  if(!navigator.geolocation){
+    fallbackCity();
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(
+    pos=>{
+      const tz = -new Date().getTimezoneOffset()/60;
+      computeAndRenderPrayerTimes(pos.coords.latitude, pos.coords.longitude, tz, 'موقعك الحالي');
+    },
+    ()=>{ fallbackCity(); },
+    {timeout:8000}
+  );
+}
+function fallbackCity(){
+  const c = cities["عمّان، الأردن"];
+  computeAndRenderPrayerTimes(c.lat, c.lon, c.tz, "عمّان، الأردن (افتراضي)");
+}
+ 
+// Astronomical prayer time calculation (Muslim World League: Fajr 18°, Isha 17°)
+function computeAndRenderPrayerTimes(lat, lon, tz, label){
+  const now = new Date();
+  const times = calcTimes(now, lat, lon, tz, 18, 17);
+  document.getElementById('ptLoc').textContent = 'الموقع: ' + label;
+  document.getElementById('ptDate').textContent = now.toLocaleDateString('ar-EG', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+  const order = [['fajr','الفجر'],['sunrise','الشروق'],['dhuhr','الظهر'],['asr','العصر'],['maghrib','المغرب'],['isha','العشاء']];
+  const nowMin = now.getHours()*60 + now.getMinutes();
+  let nextKey = null;
+  for(const [k] of order){
+    if(times[k] > nowMin){ nextKey = k; break; }
+  }
+  const grid = document.getElementById('ptGrid');
+  grid.innerHTML = order.map(([k,label])=>{
+    const mins = times[k];
+    const timeStr = minutesToTime(mins);
+    const isNext = k===nextKey;
+    let untilStr = '';
+    if(isNext){
+      let diff = mins - nowMin; if(diff<0) diff += 1440;
+      const hh = Math.floor(diff/60), mm = diff%60;
+      untilStr = `بعد ${hh>0? hh+' س ':''}${mm} د`;
+    }
+    return `<div class="pt-cell ${isNext?'next':''}"><div class="name">${label}</div><div class="time">${timeStr}</div><div class="until">${untilStr}</div></div>`;
+  }).join('');
+}
+function minutesToTime(mins){
+  mins = ((mins%1440)+1440)%1440;
+  let h = Math.floor(mins/60), m = Math.round(mins%60);
+  if(m===60){m=0;h+=1;}
+  const period = h<12 ? 'ص' : 'م';
+  let h12 = h%12; if(h12===0) h12=12;
+  return `${h12}:${String(m).padStart(2,'0')} ${period}`;
+}
+ 
+function calcTimes(date, lat, lon, tz, fajrAngle, ishaAngle){
+  const D2R = Math.PI/180, R2D = 180/Math.PI;
+  const jDate = julianDate(date) - lon/(15*24);
+  function computeDay(jd){
+    const D = jd - 2451545.0;
+    const g = (357.529 + 0.98560028*D) % 360;
+    const q = (280.459 + 0.98564736*D) % 360;
+    const L = (q + 1.915*Math.sin(g*D2R) + 0.020*Math.sin(2*g*D2R)) % 360;
+    const e = 23.439 - 0.00000036*D;
+    const RA = (Math.atan2(Math.cos(e*D2R)*Math.sin(L*D2R), Math.cos(L*D2R)) * R2D)/15;
+    const decl = Math.asin(Math.sin(e*D2R)*Math.sin(L*D2R)) * R2D;
+    let eqt = q/15 - fixHour(RA);
+    return {decl, eqt};
+  }
+  function fixHour(h){ h = h - 24*Math.floor(h/24); return h; }
+  function sunAngleTime(angle, jd, lat, decl, direction){
+    const cosH = (-Math.sin(angle*D2R) - Math.sin(decl*D2R)*Math.sin(lat*D2R)) / (Math.cos(decl*D2R)*Math.cos(lat*D2R));
+    if(cosH > 1 || cosH < -1) return 12; // polar edge fallback
+    const H = Math.acos(cosH) * R2D / 15;
+    return direction==='ccw' ? 12 - H : 12 + H;
+  }
+  const {decl, eqt} = computeDay(jDate);
+  const noon = 12 - lon/15 - eqt + tz - lon/15*0 ; // solar noon in local tz frame handled below
+  // Simplify: local solar noon (hours) = 12 + tz - lon/15 - eqt  -- standard formula
+  const dhuhrHour = 12 + tz - lon/15 - eqt;
+  const fajrHour = dhuhrHour - sunAngleDiff(fajrAngle, lat, decl);
+  const sunriseHour = dhuhrHour - sunAngleDiff(0.833, lat, decl);
+  const asrHour = dhuhrHour + asrDiff(lat, decl, 1);
+  const maghribHour = dhuhrHour + sunAngleDiff(0.833, lat, decl);
+  const ishaHour = dhuhrHour + sunAngleDiff(ishaAngle, lat, decl);
+ 
+  function sunAngleDiff(angle, lat, decl){
+    const cosH = (-Math.sin(angle*D2R) - Math.sin(decl*D2R)*Math.sin(lat*D2R)) / (Math.cos(decl*D2R)*Math.cos(lat*D2R));
+    const clamped = Math.max(-1, Math.min(1, cosH));
+    return Math.acos(clamped) * R2D / 15;
+  }
+  function asrDiff(lat, decl, shadowFactor){
+    const x = shadowFactor + Math.tan(Math.abs(lat-decl)*D2R);
+    const angle = -Math.atan(1/x) * R2D + 90; // altitude angle
+    const altitude = 90 - Math.atan(1/x)*R2D;
+    const cosH = (Math.sin(altitude*D2R) - Math.sin(decl*D2R)*Math.sin(lat*D2R)) / (Math.cos(decl*D2R)*Math.cos(lat*D2R));
+    const clamped = Math.max(-1, Math.min(1, cosH));
+    return Math.acos(clamped) * R2D / 15;
+  }
+ 
+  return {
+    fajr: Math.round(fajrHour*60),
+    sunrise: Math.round(sunriseHour*60),
+    dhuhr: Math.round(dhuhrHour*60),
+    asr: Math.round(asrHour*60),
+    maghrib: Math.round(maghribHour*60),
+    isha: Math.round(ishaHour*60),
+  };
+}
+function julianDate(date){
+  let y = date.getFullYear(), m = date.getMonth()+1, d = date.getDate();
+  if(m<=2){ y-=1; m+=12; }
+  const A = Math.floor(y/100), B = 2-A+Math.floor(A/4);
+  return Math.floor(365.25*(y+4716)) + Math.floor(30.6001*(m+1)) + d + B - 1524.5;
+}
+ 
+// initial load
+tryGeolocate();
+</script>
+</body>
+</html>
+ 
