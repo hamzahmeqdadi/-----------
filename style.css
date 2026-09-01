@@ -1,0 +1,280 @@
+:root{
+    /* Day palette */
+    --day-bg: #FBF6EC;
+    --day-bg-2: #F3EAD6;
+    --day-ink: #23342F;
+    --day-gold: #B8924A;
+    --day-teal: #0F3D3E;
+    --day-rose: #C97B63;
+    --day-card: #FFFFFF;
+    --day-line: rgba(15,61,62,0.15);
+    --day-gold: #B8924A;   /* اللون الذهبي في وضع النهار */
+
+    /* Night palette */
+    --night-bg: #0A1A22;
+    --night-bg-2: #0F2530;
+    --night-ink: #E9E3D2;
+    --night-gold: #D4B36A;
+    --night-teal: #7FBFB8;
+    --night-rose: #D98F73;
+    --night-card: #102A34;
+    --night-line: rgba(212,179,106,0.18);
+
+    --bg: var(--day-bg);
+    --bg-2: var(--day-bg-2);
+    --ink: var(--day-ink);
+    --gold: var(--day-gold);
+    --teal: var(--day-teal);
+    --rose: var(--day-rose);
+    --card: var(--day-card);
+    --line: var(--day-line);
+
+    --display: 'Reem Kufi', sans-serif;
+    --body: 'Amiri', serif;
+    --ui: 'Tajawal', sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--ui);
+    transition:background 0.7s ease, color 0.7s ease;
+    min-height:100vh;
+  }
+  body.night{ --bg:var(--night-bg); --bg-2:var(--night-bg-2); --ink:var(--night-ink); --gold:var(--night-gold); --teal:var(--night-teal); --rose:var(--night-rose); --card:var(--night-card); --line:var(--night-line); }
+
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background:
+      radial-gradient(circle at 15% 8%, var(--gold) 0%, transparent 2.2%),
+      radial-gradient(circle at 78% 4%, var(--gold) 0%, transparent 1.5%),
+      radial-gradient(circle at 92% 30%, var(--gold) 0%, transparent 1.2%),
+      radial-gradient(circle at 6% 60%, var(--gold) 0%, transparent 1.4%);
+    opacity:0.18;
+    pointer-events:none;
+    transition:opacity 0.7s ease;
+    z-index:0;
+  }
+  body.night::before{ opacity:0.35; }
+
+  .wrap{ position:relative; z-index:1; max-width:880px; margin:0 auto; padding:0 20px 80px; }
+
+  /* ---------- Header ---------- */
+  header{
+    text-align:center;
+    padding:56px 20px 40px;
+    position:relative;
+  }
+  .arch{
+    width:220px; height:120px;
+    margin:0 auto 18px;
+    position:relative;
+  }
+  .arch svg{ width:100%; height:100%; display:block; }
+  .arch path{ fill:none; stroke:var(--gold); stroke-width:2; transition:stroke 0.7s ease; }
+  .arch .fill{ fill:var(--gold); opacity:0.12; }
+
+  h1.brand{
+    font-family:var(--display);
+    font-size:clamp(2.4rem, 6vw, 3.6rem);
+    margin:0;
+    letter-spacing:2px;
+    color:var(--teal);
+    transition:color 0.7s ease;
+  }
+  body.night h1.brand{ color:var(--gold); }
+  .tagline{
+    font-family:var(--body);
+    font-style:italic;
+    font-size:1.15rem;
+    color:var(--rose);
+    margin-top:10px;
+    letter-spacing:0.5px;
+  }
+  .clock-row{
+    margin-top:22px;
+    display:flex; justify-content:center; gap:18px; flex-wrap:wrap;
+    font-family:var(--ui); font-size:0.85rem; color:var(--ink); opacity:0.75;
+  }
+  .clock-row span b{ color:var(--gold); font-weight:700; }
+
+  /* ---------- Nav (star selector) ---------- */
+  nav.tabs{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin:10px 0 44px;
+  }
+  nav.tabs button{
+    font-family:var(--ui);
+    font-weight:500;
+    font-size:0.95rem;
+    color:var(--ink);
+    background:var(--card);
+    border:1px solid var(--line);
+    padding:11px 20px;
+    border-radius:3px;
+    cursor:pointer;
+    position:relative;
+    transition:all 0.35s ease;
+    clip-path:polygon(8% 0,92% 0,100% 50%,92% 100%,8% 100%,0 50%);
+  }
+  nav.tabs button:hover{ border-color:var(--gold); }
+  nav.tabs button.active{
+    background:var(--teal);
+    color:var(--day-bg);
+    border-color:var(--teal);
+  }
+  body.night nav.tabs button.active{ background:var(--gold); color:var(--night-bg); border-color:var(--gold); }
+
+  section.panel{ display:none; animation:fadeIn 0.5s ease; }
+  section.panel.active{ display:block; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  .section-title{
+    font-family:var(--display);
+    font-size:1.6rem;
+    color:var(--teal);
+    text-align:center;
+    margin-bottom:6px;
+    transition:color 0.7s ease;
+  }
+  body.night .section-title{ color:var(--gold); }
+  .section-sub{
+    text-align:center;
+    font-family:var(--ui);
+    font-size:0.85rem;
+    opacity:0.65;
+    margin-bottom:30px;
+  }
+
+  /* ---------- Dhikr card ---------- */
+  .dhikr-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:28px 26px 22px;
+    margin-bottom:22px;
+    position:relative;
+    overflow:hidden;
+  }
+  .dhikr-card::before{
+    content:"";
+    position:absolute; top:0; right:0; left:0; height:3px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .dhikr-text{
+    font-family:var(--body);
+    font-size:1.35rem;
+    line-height:2.3;
+    color:var(--ink);
+    text-align:right;
+  }
+  .dhikr-text .verse-num{
+    font-family:var(--ui);
+    font-size:0.7rem;
+    color:var(--gold);
+    border:1px solid var(--gold);
+    border-radius:50%;
+    padding:2px 6px;
+    margin:0 4px;
+    vertical-align:middle;
+  }
+  .dhikr-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:18px;
+    padding-top:14px;
+    border-top:1px dashed var(--line);
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .dhikr-source{ font-family:var(--ui); font-size:0.78rem; opacity:0.55; }
+  .counter{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--ui);
+  }
+  .counter button.tap{
+    width:44px; height:44px;
+    border-radius:50%;
+    border:2px solid var(--gold);
+    background:transparent;
+    color:var(--gold);
+    font-size:1rem;
+    font-weight:700;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:all 0.2s ease;
+    position:relative;
+  }
+  .counter button.tap svg{ position:absolute; inset:-2px; width:48px; height:48px; transform:rotate(-90deg); }
+  .counter button.tap circle{ fill:none; stroke:var(--gold); stroke-width:2; stroke-dasharray:126; transition:stroke-dashoffset 0.25s ease; }
+  .counter button.tap.done{ background:var(--gold); color:var(--card); }
+  .counter .count-label{ font-size:0.85rem; opacity:0.7; min-width:52px; }
+  .counter .reset{ background:none; border:none; color:var(--rose); font-size:0.75rem; cursor:pointer; text-decoration:underline; opacity:0.7; }
+  .counter .reset:hover{ opacity:1; }
+
+  /* ---------- Prayer times ---------- */
+  .pt-box{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:26px;
+    text-align:center;
+  }
+  .pt-loc{ font-family:var(--ui); font-size:0.95rem; margin-bottom:4px; }
+  .pt-date{ font-family:var(--ui); font-size:0.8rem; opacity:0.6; margin-bottom:24px; }
+  .pt-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(120px,1fr));
+    gap:14px;
+    margin-bottom:22px;
+  }
+  .pt-cell{
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:16px 8px;
+    transition:all 0.3s ease;
+  }
+  .pt-cell.next{ border-color:var(--gold); background:linear-gradient(180deg, transparent, rgba(184,146,74,0.08)); }
+  .pt-cell .name{ font-family:var(--display); font-size:1rem; color:var(--teal); margin-bottom:6px; }
+  body.night .pt-cell .name{ color:var(--gold); }
+  .pt-cell .time{ font-family:var(--ui); font-size:1.25rem; font-weight:700; direction:ltr; }
+  .pt-cell .until{ font-family:var(--ui); font-size:0.68rem; opacity:0.55; margin-top:4px; }
+  .pt-controls{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+  .pt-controls select, .pt-controls button{
+    font-family:var(--ui); font-size:0.85rem;
+    padding:9px 16px; border-radius:4px; border:1px solid var(--line);
+    background:var(--bg); color:var(--ink); cursor:pointer;
+  }
+  .pt-controls button.primary{ background:var(--teal); color:var(--day-bg); border-color:var(--teal); }
+  body.night .pt-controls button.primary{ background:var(--gold); color:var(--night-bg); }
+  .pt-note{ font-family:var(--ui); font-size:0.72rem; opacity:0.5; margin-top:16px; line-height:1.6; }
+
+  /* ---------- Hadith ---------- */
+  .hadith-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:24px 26px;
+    margin-bottom:18px;
+    border-right:3px solid var(--rose);
+  }
+  .hadith-text{ font-family:var(--body); font-size:1.2rem; line-height:2.1; }
+  .hadith-source{ font-family:var(--ui); font-size:0.78rem; color:var(--rose); margin-top:12px; }
+
+  footer{ text-align:center; padding:40px 0 10px; font-family:var(--ui); font-size:0.75rem; opacity:0.45; }
+
+  @media (max-width:520px){
+    .dhikr-text{ font-size:1.15rem; }
+    nav.tabs button{ font-size:0.82rem; padding:9px 14px; }
+  }
+
+  :focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
