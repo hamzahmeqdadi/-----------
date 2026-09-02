@@ -53,6 +53,7 @@ function resetCounter(id){
 
 document.getElementById('sabahList').innerHTML = sabahAdhkar.map((it,i)=>dhikrCardHTML(it,'sabah',i)).join('');
 document.getElementById('masaaList').innerHTML = masaaAdhkar.map((it,i)=>dhikrCardHTML(it,'masaa',i)).join('');
+document.getElementById('nawmList').innerHTML = nawmAdhkar.map((it,i)=>dhikrCardHTML(it,'nawm',i)).join('');
 document.getElementById('adiyaList').innerHTML = adiya.map(d=>`
   <div class="hadith-card">
     <div class="section-sub" style="text-align:right;margin-bottom:8px;opacity:0.8;font-family:var(--ui);font-weight:700;color:var(--gold);">${d.title}</div>
@@ -77,7 +78,7 @@ tabButtons.forEach(btn=>{
   });
 });
 function applyThemeForTab(tab){
-  if(tab === 'masaa'){ document.body.classList.add('night'); }
+  if(tab === 'masaa' || tab === 'nawm'){ document.body.classList.add('night'); }
   else if(tab === 'sabah'){ document.body.classList.remove('night'); }
   // adiya/hadith/salat keep whatever the clock/time-of-day already set
 }

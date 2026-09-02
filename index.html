@@ -2,20 +2,11 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0EQJRM3D8J"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-0EQJRM3D8J');
-</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>حِصن المسلم — أذكار وأدعية وأحاديث ومواقيت الصلاة</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@400;500;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div class="wrap">
@@ -40,6 +31,10 @@
   <nav class="tabs">
     <button data-tab="sabah" class="active">أذكار الصباح</button>
     <button data-tab="masaa">أذكار المساء</button>
+    <button data-tab="nawm">
+      <svg class="tab-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      أذكار النوم
+    </button>
     <button data-tab="adiya">أدعية مختارة</button>
     <button data-tab="hadith">أحاديث نبوية</button>
     <button data-tab="salat">مواقيت الصلاة</button>
@@ -57,6 +52,13 @@
     <div class="section-title">أذكار المساء</div>
     <div class="section-sub">من بعد صلاة العصر إلى غروب الشمس</div>
     <div id="masaaList"></div>
+  </section>
+
+  <!-- ===================== أذكار النوم ===================== -->
+  <section class="panel" id="nawm">
+    <div class="section-title">أذكار النوم</div>
+    <div class="section-sub">تُقال عند الأوي إلى الفراش قُبيل النوم</div>
+    <div id="nawmList"></div>
   </section>
 
   <!-- ===================== أدعية ===================== -->
@@ -94,7 +96,7 @@
   <footer>حِصن المسلم — بُني بحُبٍّ لخدمة الذكر اليومي</footer>
 </div>
 
-<script src="script.js"></script>
-<script src="app.js"></script>
+<script src="js/script.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
